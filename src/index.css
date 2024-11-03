@@ -1,13 +1,95 @@
-body {
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Make root and body take full height */
+html, body, #root {
+  width: 355px;
+  min-height: 525px;
+  height: 100vh;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* Custom base styles */
+@layer base {
+  body {
+    @apply text-gray-800 bg-gradient-to-br from-purple-50 to-violet-100;
+  }
+
+  h1 {
+    @apply text-2xl font-bold bg-gradient-to-r from-purple-600 to-violet-600 bg-clip-text text-transparent;
+  }
+
+  h2 {
+    @apply text-xl font-semibold text-purple-700;
+  }
+}
+
+/* Reusable component classes */
+@layer components {
+  .page-container {
+    @apply h-full w-full p-6 overflow-auto;
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  .card {
+    @apply bg-white rounded-2xl shadow-lg p-6 h-full;
+    transform: translateZ(0); /* Force GPU acceleration */
+  }
+
+  .gradient-button {
+    @apply px-4 py-3 rounded-lg relative
+           flex items-center justify-center gap-2 
+           shadow-md
+           select-none;
+    background: linear-gradient(to right, #9333ea, #7c3aed);
+    transform: translateZ(0); /* Force GPU acceleration */
+  }
+  
+  .gradient-button:hover {
+    background: linear-gradient(to right, #8b31e0, #7434e5);
+  }
+  
+  .gradient-button:active {
+    transform: translateZ(0) scale(0.98);
+  }
+
+  .feature-card {
+    @apply bg-purple-50 rounded-lg p-4 select-none
+           transform-gpu transition-[background-color,transform,box-shadow]
+           duration-200 ease-out;
+  }
+  
+  .feature-card:hover {
+    @apply shadow-md bg-purple-100;
+  }
+  
+  .feature-card:active {
+    transform: scale(0.98);
+    @apply bg-purple-200;
+  }
+
+  /* Content animation classes */
+  .content-slide-up {
+    opacity: 0;
+    transform: translateY(10px);
+    animation: slideUp 0.5s ease-out forwards;
+  }
+}
+
+/* Animation keyframes */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
